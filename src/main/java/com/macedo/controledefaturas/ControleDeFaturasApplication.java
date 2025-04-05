@@ -10,4 +10,5 @@ public class ControleDeFaturasApplication {
         SpringApplication.run(ControleDeFaturasApplication.class, args);
     }
 
+
 }
