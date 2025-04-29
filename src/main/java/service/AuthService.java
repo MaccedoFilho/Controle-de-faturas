@@ -24,6 +24,10 @@ public class AuthService {
             throw new RuntimeException("password does not match");
         }
 
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setId(user.getId());
+        loginResponse.setEmail(user.getEmail());
+
         return new LoginResponse();
     }
 }
