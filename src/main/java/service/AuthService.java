@@ -5,15 +5,18 @@ import dto.LoginResponse;
 import model.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import repository.UserRepository;
+import security.JwtUtil;
 
 public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = new JwtUtil();
     }
 
     public LoginResponse login(LoginRequest loginRequest) {
@@ -27,6 +30,9 @@ public class AuthService {
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setId(user.getId());
         loginResponse.setEmail(user.getEmail());
+
+        String token = jwtUtil.generateToken(loginRequest);
+        loginResponse.setToken(token);
 
         return new LoginResponse();
     }
