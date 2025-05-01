@@ -38,4 +38,4 @@ Você pode acessar a apresentação do projeto no GitHub Pages:
 ## 🧑‍💻 Autor
 
 **Macedo Filho**  
-[GitHub](https://github.com/MacedoFilho)
+[GitHub](https://github.com/MaccedoFilho)
