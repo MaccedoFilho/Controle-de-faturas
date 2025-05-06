@@ -15,10 +15,12 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder){
+    public AuthService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder,
+                       JwtUtil jwtUtil) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.jwtUtil = new JwtUtil();
+        this.jwtUtil = jwtUtil;
     }
 
     public LoginResponse login(LoginRequest loginRequest) {
@@ -33,7 +35,7 @@ public class AuthService {
         loginResponse.setId(user.getId());
         loginResponse.setEmail(user.getEmail());
 
-        String token = jwtUtil.generateToken(loginRequest);
+        String token = jwtUtil.generateToken(loginRequest.getEmail());
         loginResponse.setToken(token);
 
         return loginResponse;

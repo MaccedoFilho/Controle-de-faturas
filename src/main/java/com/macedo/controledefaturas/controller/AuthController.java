@@ -1,5 +1,7 @@
 package com.macedo.controledefaturas.controller;
 
+import com.macedo.controledefaturas.dto.LoginRequest;
+import com.macedo.controledefaturas.dto.LoginResponse;
 import com.macedo.controledefaturas.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +24,11 @@ public class AuthController {
     public ResponseEntity<String> register(@RequestBody User user) {
         String message = authService.register(user);
         return ResponseEntity.ok(message);
+    }
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+        LoginResponse resp = authService.login(loginRequest);
+        return ResponseEntity.ok(resp);
     }
 }
 

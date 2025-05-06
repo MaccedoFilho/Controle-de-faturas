@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
-    username: MACEDO
+    username: SYSTEM
     password: devMaster19
     driver-class-name: oracle.jdbc.OracleDriver
 
@@ -13,8 +13,14 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.OracleDialect
 
-
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
     operationsSorter: method
+
+jwt:
+  secret: minha-super-senha-muitolonga-1234567890abcd
+
+logging:
+  level:
+    org.springframework.security: DEBUG
