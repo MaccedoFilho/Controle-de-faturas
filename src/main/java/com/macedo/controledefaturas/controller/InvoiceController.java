@@ -9,15 +9,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/invoices")
-public class invoiceController {
+public class InvoiceController {
 
     private final InvoiceService invoiceService;
 
-    public invoiceController(InvoiceService invoiceService){
+    public InvoiceController(InvoiceService invoiceService){
         this.invoiceService = invoiceService;
     }
 
-    @GetMapping                          // 3) GET /invoices
+    @GetMapping
     public ResponseEntity<List<Invoice>> listAll() {
         List<Invoice> invoices = invoiceService.getAllInvoices();
         return ResponseEntity.ok(invoices);
