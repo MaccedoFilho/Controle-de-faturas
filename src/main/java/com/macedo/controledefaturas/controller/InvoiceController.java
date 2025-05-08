@@ -6,6 +6,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -20,11 +22,12 @@ public class InvoiceController {
     }
 
     @GetMapping
-    public ResponseEntity<List<InvoiceDTO>> listAll() {
-        var dtos = invoiceService.getAllInvoices().stream()
-                .map(InvoiceDTO::fromEntity)
-                .toList();
-        return ResponseEntity.ok(dtos);
+    public ResponseEntity<Page<InvoiceDTO>> listAll(Pageable pageable) {
+        Page<InvoiceDTO> page = invoiceService
+                .getAllInvoices(pageable)
+                .map(InvoiceDTO::fromEntity);
+
+        return ResponseEntity.ok(page);
     }
 
     @GetMapping("/{id}")

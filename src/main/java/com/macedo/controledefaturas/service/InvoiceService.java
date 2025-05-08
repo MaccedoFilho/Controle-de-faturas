@@ -1,10 +1,11 @@
 package com.macedo.controledefaturas.service;
 
 import com.macedo.controledefaturas.model.Invoice;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface InvoiceService {
-    List<Invoice> getAllInvoices();
+    Page<Invoice> getAllInvoices(Pageable pageable);
     Invoice getInvoiceById(Long id);
     Invoice createInvoice(Invoice invoice);
     Invoice updateInvoice(Long id, Invoice invoice);
