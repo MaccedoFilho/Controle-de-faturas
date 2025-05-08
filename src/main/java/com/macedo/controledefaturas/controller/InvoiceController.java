@@ -1,7 +1,9 @@
 package com.macedo.controledefaturas.controller;
 
-import com.macedo.controledefaturas.model.Invoice;
+import com.macedo.controledefaturas.dto.InvoiceDTO;
 import com.macedo.controledefaturas.service.InvoiceService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,30 +20,34 @@ public class InvoiceController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Invoice>> listAll() {
-        List<Invoice> invoices = invoiceService.getAllInvoices();
-        return ResponseEntity.ok(invoices);
+    public ResponseEntity<List<InvoiceDTO>> listAll() {
+        var dtos = invoiceService.getAllInvoices().stream()
+                .map(InvoiceDTO::fromEntity)
+                .toList();
+        return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Invoice> getById(@PathVariable Long id) {
-        Invoice invoice = invoiceService.getInvoiceById(id);
-        return ResponseEntity.ok(invoice);
+    public ResponseEntity<InvoiceDTO> getById(@PathVariable Long id) {
+        var inv = invoiceService.getInvoiceById(id);
+        return ResponseEntity.ok(InvoiceDTO.fromEntity(inv));
     }
 
     @PostMapping
-    public ResponseEntity<Invoice> create(@RequestBody Invoice invoice) {
-        Invoice saved = invoiceService.createInvoice(invoice);
-        return ResponseEntity.status(201).body(saved);
+    public ResponseEntity<InvoiceDTO> create(@Valid @RequestBody InvoiceDTO dto) {
+        var created = invoiceService.createInvoice(dto.toEntity());
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(InvoiceDTO.fromEntity(created));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Invoice> update(
+    public ResponseEntity<InvoiceDTO> update(
             @PathVariable Long id,
-            @RequestBody Invoice invoice
+            @Valid @RequestBody InvoiceDTO dto
     ) {
-        Invoice updated = invoiceService.updateInvoice(id, invoice);
-        return ResponseEntity.ok(updated);
+        var updated = invoiceService.updateInvoice(id, dto.toEntity());
+        return ResponseEntity.ok(InvoiceDTO.fromEntity(updated));
     }
 
     @DeleteMapping("/{id}")

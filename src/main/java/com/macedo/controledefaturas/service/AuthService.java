@@ -41,9 +41,9 @@ public class AuthService {
         return loginResponse;
     }
 
-    public String register(User user) {
+    public User register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        return "User registered successfully";
+        return userRepository.save(user);
     }
 }
