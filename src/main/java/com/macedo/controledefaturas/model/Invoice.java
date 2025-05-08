@@ -1,6 +1,12 @@
 package com.macedo.controledefaturas.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -11,6 +17,12 @@ public class Invoice {
     private String description;
     private Double amount;
     private LocalDate dueDate;
+
+    @Enumerated(EnumType.STRING)
+    private InvoiceCategory category;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus status;
 
     public Invoice() {}
 
@@ -25,4 +37,20 @@ public class Invoice {
 
     public LocalDate getDueDate() { return dueDate; }
     public void setDueDate(LocalDate dueDate) { this.dueDate = dueDate; }
+
+    public InvoiceCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(InvoiceCategory category) {
+        this.category = category;
+    }
+
+    public PaymentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PaymentStatus status) {
+        this.status = status;
+    }
 }
