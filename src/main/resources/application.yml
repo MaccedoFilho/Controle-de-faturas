@@ -14,9 +14,10 @@ spring:
     database-platform: org.hibernate.dialect.OracleDialect
 
 springdoc:
+  api-docs:
+    path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
-    operationsSorter: method
 
 jwt:
   secret: minha-super-senha-muitolonga-1234567890abcd
@@ -24,3 +25,5 @@ jwt:
 logging:
   level:
     org.springframework.security: DEBUG
+
+
